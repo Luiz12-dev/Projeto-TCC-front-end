@@ -1,0 +1,85 @@
+<div class="auth-wrapper">
+  <div class="header-section">
+    <div class="logo-circle">
+      <i class="ph ph-scissors"></i>
+    </div>
+    <h1>BarberShop</h1>
+    <p>Sistema de Agendamento Profissional</p>
+  </div>
+
+  <div class="auth-card">
+    <div class="toggle-container">
+      <button type="button" [class.active]="isLoginMode" (click)="setMode(true)">Login</button>
+      <button type="button" [class.active]="!isLoginMode" (click)="setMode(false)">Cadastro</button>
+    </div>
+
+    <div class="form-header">
+      <h2>{{ isLoginMode ? 'Bem-vindo de volta' : 'Crie sua conta' }}</h2>
+      <p>{{ isLoginMode ? 'Entre com suas credenciais' : 'Preencha os dados abaixo' }}</p>
+    </div>
+
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      @if (!isLoginMode) {
+      <div class="input-group">
+        <label>Nome Completo</label>
+        <div class="input-wrapper">
+          <i class="ph ph-user"></i>
+          <input type="text" formControlName="username" placeholder="Seu nome" />
+        </div>
+      </div>
+      }
+
+      <div class="input-group">
+        <label>Email</label>
+        <div class="input-wrapper">
+          <i class="ph ph-envelope-simple"></i>
+          <input type="email" formControlName="email" placeholder="seu@email.com" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Senha</label>
+        <div class="input-wrapper">
+          <i class="ph ph-lock-key"></i>
+          <input type="password" formControlName="password" placeholder="Sua senha" />
+        </div>
+      </div>
+
+      @if (!isLoginMode) {
+      <div class="input-group role-section">
+        <label class="main-label">Tipo de Conta</label>
+
+        <div class="role-options-container">
+          <label class="role-card">
+            <input type="radio" formControlName="role" value="CLIENT" />
+            <div class="card-content">
+              <span class="custom-radio-circle"></span>
+              <i class="ph ph-user-circle icon-role"></i>
+              <div class="text-info">
+                <span class="role-title">Cliente</span>
+                <span class="role-desc">Agendar serviços</span>
+              </div>
+            </div>
+          </label>
+
+          <label class="role-card">
+            <input type="radio" formControlName="role" value="OWNER" />
+            <div class="card-content">
+              <span class="custom-radio-circle"></span>
+              <i class="ph ph-scissors icon-role"></i>
+              <div class="text-info">
+                <span class="role-title">Proprietário</span>
+                <span class="role-desc">Gerenciar barbearia</span>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+      }
+
+      <button type="submit" class="btn-submit" [disabled]="authForm.invalid">
+        {{ isLoginMode ? 'Entrar' : 'Criar conta' }}
+      </button>
+    </form>
+  </div>
+</div>
